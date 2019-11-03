@@ -13,6 +13,7 @@ public class Forbindelse {
     private Statement stmt;
     private String url, userName, password;
     private ResultSet userset,appointmentset;
+    private String cpr;
 
 
     public void updateConnection(String newUrl, String newUsername,String newPassword) {
@@ -36,26 +37,24 @@ public class Forbindelse {
             userName = "root";
             password = "korianderforthewin";
             connection = DriverManager.getConnection(url, userName, password);
-            stmt = connection.createStatement();
 
             if (connection != null) {
                 System.out.println("forbindelse til databasen");
             }
 
+            assert connection != null;
+            stmt = connection.createStatement();
 
-        } catch (Exception e) {
-            System.out.println("forbindelse undtagelse: " + e.getMessage());
-            e.printStackTrace();
+            } catch(Exception e){
+                System.out.println("forbindelse undtagelse: " + e.getMessage());
+                e.printStackTrace();
+            }
         }
 
-
-
-
-    }
     public void searchUser(String cpr){
 
         try {
-            userset = stmt.executeQuery("SELECT * FROM sund.person where cpr="+cpr+";");
+            userset = stmt.executeQuery("SELECT* FROM sund.person where cpr="+cpr+";");
             int output = userset.getInt("cpr");
             System.out.println("bruger fundet med tallet:"+output);
 

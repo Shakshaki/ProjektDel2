@@ -31,5 +31,7 @@ public class TestServlet extends HttpServlet {
         System.out.println((inputPassword)); //printer det indtastede password i output
         resp.sendRedirect("/" +"?username=" + inputBruger); //det indtastede brugernavn vises på hjemmesiden og i urlen
         //forbindelse.
+
+
     }
 }
