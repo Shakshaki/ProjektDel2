@@ -4,7 +4,8 @@ public class Patient {
     private String Cpr;
     private String Password;
 
-    public String getCpr() {
+    public String getCpr()
+    {
         return Cpr;
     }
 
