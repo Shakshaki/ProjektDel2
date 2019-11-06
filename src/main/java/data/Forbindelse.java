@@ -56,13 +56,13 @@ public class Forbindelse {
     public Patient searchUser(String cpr) {
 
         try {
-            userset = stmt.executeQuery("SELECT * FROM sund.person where cpr=" + cpr + ";");
+            userset = stmt.executeQuery("SELECT * FROM sund.patient where brugernavn=" + cpr + ";");
             Patient patient = new Patient();
             if (userset.next()) {
                 int output = userset.getInt("cpr");
                 System.out.println("Bruger fundet med cpr:" + output);
-                patient.setCpr(userset.getString("cpr"));
-                patient.setFornavn(userset.getString("fornavn"));
+                patient.setCpr(userset.getString("cpr")); //laver til et objekt
+                patient.setPassword(userset.getString("kode"));
                 return patient;
             }
 

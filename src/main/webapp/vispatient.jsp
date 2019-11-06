@@ -12,8 +12,8 @@
     <title>Title</title>
 </head>
 <body>
-<% String cpr = request.getParameter("cpr");
-Forbindelse f = new Forbindelse();
+<%  String cpr = request.getParameter("cpr");
+    Forbindelse f = new Forbindelse();
     Patient patient = f.searchUser(cpr);
 
     out.println(patient);

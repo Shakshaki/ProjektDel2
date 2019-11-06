@@ -2,7 +2,7 @@ package data;
 
 public class Patient {
     private String Cpr;
-    private String Fornavn;
+    private String Password;
 
     public String getCpr() {
         return Cpr;
@@ -12,11 +12,11 @@ public class Patient {
         Cpr = cpr;
     }
 
-    public String getFornavn() {
-        return Fornavn;
+    public String getPassword() {
+        return Password;
     }
 
-    public void setFornavn(String fornavn) {
-        Fornavn = fornavn;
+    public void setPassword(String password) {
+        Password = password;
     }
 }

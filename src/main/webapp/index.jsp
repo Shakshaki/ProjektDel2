@@ -1,13 +1,20 @@
 <%@ page import="java.util.Date" %>
+<%@ page import="data.Forbindelse" %>
+<%@ page import="data.Patient" %>
 <!DOCTYPE html>
 
 <%
     //Check bruger fra parametre
-
     String cpr = request.getParameter("username");
     String kodeord = request.getParameter("password");
+    Forbindelse forbindelse = new Forbindelse();
+
     //Check mod database!
-    if ((cpr !=null && cpr.equals("1234561111") && kodeord!=null && kodeord.equals("jasmin"))){
+    Patient p = forbindelse.searchUser(cpr); //finder patient med tilhørende cpr
+    if(p != null && kodeord.equals(p.getPassword())){ //tjekker, om der er fundet patient i database og sammenligner input med kodeord
+        response.sendRedirect("loginside.jsp");
+
+    } else {
         response.sendRedirect("loginside.jsp");
     }
 
@@ -32,15 +39,15 @@
                 <h3><% out.println( new Date()); %></h3>
                 <h4>
                     <p>
-                        bruger er oprettet med navnet <% out.print(request.getParameter("username")); %>
+                        Bruger er oprettet med navnet <% out.print(request.getParameter("username")); %>
                     </p>
                 </h4>
                 <div class="item4">
                     <form class="username" action="index.jsp" method="POST">
                         Brugernavn: <br>
-                        <input type="text" id="user" name="username"><br>
+                        <input type="text" id="user" name="username" required><br>
                         Adgangskode: <br>
-                        <input type="password" name="password"><br>
+                        <input type="password" name="password" required><br>
                         <input type="submit" id = "logind" value="log ind">  </input>
                     </form>
                     <form>
