@@ -1,5 +1,17 @@
 <%@ page import="java.util.Date" %>
 <!DOCTYPE html>
+
+<%
+    //Check bruger fra parametre
+
+    String cpr = request.getParameter("username");
+    String kodeord = request.getParameter("password");
+    //Check mod database!
+    if ((cpr !=null && cpr.equals("1234561111") && kodeord!=null && kodeord.equals("jasmin"))){
+        response.sendRedirect("loginside.jsp");
+    }
+
+%>
 <html lang="en">
     <head>
         <meta charset="UTF-8">
@@ -24,7 +36,7 @@
                     </p>
                 </h4>
                 <div class="item4">
-                    <form class="username" action="/hello/" method="POST">
+                    <form class="username" action="index.jsp" method="POST">
                         Brugernavn: <br>
                         <input type="text" id="user" name="username"><br>
                         Adgangskode: <br>
@@ -32,7 +44,7 @@
                         <input type="submit" id = "logind" value="log ind">  </input>
                     </form>
                     <form>
-                        <input type="radio" name="type" value="patient" checked> Patient <br>
+                        <input type="radio" name="type" value="patient" checked> data.Patient <br>
                         <input type="radio" name="type" value="personale"> Fagpersonale <br>
                     </form>
                 </div>

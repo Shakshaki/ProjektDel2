@@ -5,6 +5,9 @@
 //Dele af koden er hentet fra en forelæsning omkring dynamiske hjemmesider:
 //https://docs.google.com/document/d/1uawRw_XZX5lFGiBvJvWhzVWKqFwz6NZIBrQsG4KUDEQ/edit//
 
+import data.Forbindelse;
+import data.Patient;
+
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -29,8 +32,9 @@ public class TestServlet extends HttpServlet {
         System.out.println("3");
         System.out.println(inputBruger); //printer det indtastede brugernavn i output
         System.out.println((inputPassword)); //printer det indtastede password i output
+        Patient bruger = forbindelse.searchUser(inputBruger);
         resp.sendRedirect("/" +"?username=" + inputBruger); //det indtastede brugernavn vises på hjemmesiden og i urlen
-        //forbindelse.
+
 
 
     }

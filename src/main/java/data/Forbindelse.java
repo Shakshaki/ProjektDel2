@@ -1,3 +1,5 @@
+package data;
+
 import java.sql.*;
 
 public class Forbindelse {
@@ -39,32 +41,35 @@ public class Forbindelse {
             connection = DriverManager.getConnection(url, userName, password);
 
             if (connection != null) {
-                System.out.println("Forbindelse til databasen");
+                System.out.println("data.Forbindelse til databasen");
             }
 
             assert connection != null;
             stmt = connection.createStatement();
 
         } catch (Exception e) {
-            System.out.println("Forbindelse undtagelse: " + e.getMessage());
+            System.out.println("data.Forbindelse undtagelse: " + e.getMessage());
             e.printStackTrace();
         }
     }
 
-    public void searchUser(String cpr) {
+    public Patient searchUser(String cpr) {
 
         try {
-            userset = stmt.executeQuery("SELECT* FROM sund.person where cpr=" + cpr + ";");
+            userset = stmt.executeQuery("SELECT * FROM sund.person where cpr=" + cpr + ";");
+            Patient patient = new Patient();
             if (userset.next()) {
                 int output = userset.getInt("cpr");
                 System.out.println("Bruger fundet med cpr:" + output);
+                patient.setCpr(userset.getString("cpr"));
+                patient.setFornavn(userset.getString("fornavn"));
+                return patient;
             }
-
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        return null;
     }
 
     public void searchAppointment() {
