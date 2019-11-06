@@ -9,13 +9,11 @@
     String kodeord = request.getParameter("password");
     Forbindelse forbindelse = new Forbindelse();
 
-    //Check mod database!
+    //Check mod database
     Patient p = forbindelse.searchUser(cpr); //finder patient med tilhørende cpr
-    if(p != null && kodeord.equals(p.getPassword())) { //tjekker, om der er fundet patient i database og sammenligner input med kodeord
-        response.sendRedirect("startside.jsp"); // viser den nye startside
-    } else {
-        response.sendRedirect("index.jsp"); //viser den samme loginside
-    }
+    if(p != null && kodeord.equals(p.getPassword())){   //tjekker, om der er fundet patient i database og sammenligner input med kodeord
+        response.sendRedirect("startside.jsp");// viser den nye startside
+        }
 
 %>
 <html lang="en">
@@ -42,7 +40,7 @@
                     </p>
                 </h4>
                 <div class="item4">
-                    <form class="username" action="index.jsp" method="POST">
+                    <form class="username" action="startside.jsp" method="POST">
                         Brugernavn: <br>
                         <input type="text" id="user" name="username" required><br>
                         Adgangskode: <br>
