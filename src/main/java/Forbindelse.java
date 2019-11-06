@@ -5,7 +5,7 @@ public class Forbindelse {
     public static void main(String[] args) { //psvm
         Forbindelse forbindelse = new Forbindelse();
         // forbindelse.updateConnection("192.168.239.24","root","groot");
-        forbindelse.searchUser( "0");//
+        forbindelse.searchUser( "0");
 
     }
 
@@ -33,20 +33,20 @@ public class Forbindelse {
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").newInstance();  //indlæser driver-klasse
-            url = "jdbc:mysql://127.0.0.1:3306/?user=root";
-            userName = "root";
-            password = "korianderforthewin";
+            url = "jdbc:mysql://192.168.239.24";
+            userName = "sika";
+            password = "itSMRC2019";
             connection = DriverManager.getConnection(url, userName, password);
 
             if (connection != null) {
-                System.out.println("forbindelse til databasen");
+                System.out.println("Forbindelse til databasen");
             }
 
             assert connection != null;
             stmt = connection.createStatement();
 
             } catch(Exception e){
-                System.out.println("forbindelse undtagelse: " + e.getMessage());
+                System.out.println("Forbindelse undtagelse: " + e.getMessage());
                 e.printStackTrace();
             }
         }
@@ -56,8 +56,7 @@ public class Forbindelse {
         try {
             userset = stmt.executeQuery("SELECT* FROM sund.person where cpr="+cpr+";");
             int output = userset.getInt("cpr");
-            System.out.println("bruger fundet med tallet:"+output);
-
+            System.out.println("Bruger fundet med cpr:"+output);
 
         } catch (Exception e){
             e.printStackTrace();
