@@ -7,6 +7,14 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.Date" %>
+<%
+   Patient bruger = (Patient) session.getAttribute("bruger");
+   if (bruger == null){
+       response.sendRedirect("index.jsp");
+   }
+
+%>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
