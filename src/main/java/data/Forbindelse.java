@@ -7,14 +7,15 @@ public class Forbindelse {
     public static void main(String[] args) { //psvm
         Forbindelse forbindelse = new Forbindelse();
         // forbindelse.updateConnection("192.168.239.24","root","groot");
-        forbindelse.searchUser("0");
+        String cpr ="0123456789";
+        forbindelse.searchUser(cpr);
 
     }
 
     private Connection connection;
     private Statement stmt;
     private String url, userName, password;
-    private ResultSet userset, appointmentset;
+    private ResultSet userset, appointmentset = null;
     private String cpr;
 
 
@@ -56,14 +57,20 @@ public class Forbindelse {
     public Patient searchUser(String cpr) {
 
         try {
-            userset = stmt.executeQuery("SELECT * FROM sund.patient where brugernavn=" + cpr + ";");
+            userset = stmt.executeQuery("SELECT * FROM sund.patient WHERE brugernavn='"+cpr+"';");
             Patient patient = new Patient();
+
+
+
             if (userset.next()) {
-                int output = userset.getInt("cpr");
+                int output = userset.getInt("brugernavn");
                 System.out.println("Bruger fundet med cpr:" + output);
-                patient.setCpr(userset.getString("cpr")); //laver til et objekt
+                //String outputstring = userset.getString("kode");
+                //System.out.println("Bruger fundet med kode:" + outputstring);
+                patient.setCpr(userset.getString("brugernavn")); //laver til et objekt
                 patient.setPassword(userset.getString("kode"));
                 return patient;
+
             }
 
         } catch (Exception e) {
