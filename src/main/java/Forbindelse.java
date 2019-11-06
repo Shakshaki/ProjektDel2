@@ -5,7 +5,7 @@ public class Forbindelse {
     public static void main(String[] args) { //psvm
         Forbindelse forbindelse = new Forbindelse();
         // forbindelse.updateConnection("192.168.239.24","root","groot");
-        forbindelse.searchUser( "0");
+        forbindelse.searchUser( "0");//
 
     }
 
