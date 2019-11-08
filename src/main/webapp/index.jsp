@@ -4,23 +4,23 @@
 <%@ page import="java.sql.SQLException" %>
 <!DOCTYPE html>
 
-<%
+<%//Funktionel del
     //Check bruger fra parametre
     String cpr = request.getParameter("username");
     String kodeord = request.getParameter("password");
     Forbindelse forbindelse = Forbindelse.getInstance();
-    Patient p = null;             //definerer og finder patient med tilhørende cpr
+    Patient p = null; //definerer og finder patient med tilhørende cpr
     try {
         p = forbindelse.searchUser(cpr);
     } catch (SQLException e) {
         e.printStackTrace();
     }
-
     //Check mod database
-    if(p != null && kodeord.equals(p.getPassword())) {   //tjekker, om der er fundet patient i database og sammenligner input med kodeord
-        response.sendRedirect("startside.jsp");
-        session.setAttribute("bruger",p);// viser den nye startside
+    if(p != null && kodeord.equals(p.getPassword())) {   //tjekker, om der er fundet patient i database og sammenligner med input
+        response.sendRedirect("startside.jsp"); // viser den nye startside
+        session.setAttribute("bruger",p);
     }
+
 %>
    <html lang="en">
     <head>

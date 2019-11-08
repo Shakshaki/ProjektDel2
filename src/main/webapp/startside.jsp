@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.Date" %>
 <%@ page import="data.Patient" %>
-<%
+<% //Funktionel del
    Patient bruger = (Patient) session.getAttribute("bruger");
    if (bruger == null){
        response.sendRedirect("index.jsp");

@@ -19,4 +19,19 @@ public class Patient {
     public void setPassword(String password) {
         Password = password;
     }
+
+    public static void main(String[]args){
+        Patient test = new Patient();
+        String Cpr = "0123456789";
+        String Password = "testkode";
+        test.setCpr(Cpr);
+        test.setPassword(Password);
+        System.out.println("getCpr med værdien: "+test.getCpr());
+        System.out.println("getPassword med værdien: "+test.getPassword());
+    }
+
+
 }
+
+
+

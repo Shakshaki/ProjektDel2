@@ -58,7 +58,7 @@ public class Forbindelse {
             Patient patient = new Patient();
 
             if (userset.next()) {
-                int output = userset.getInt("brugernavn");
+                int output = userset.getInt("brugernavn"); //skal laves til streng
                 System.out.println("Bruger fundet med følgende cpr: " + output);
                 //String outputstring = userset.getString("kode");
                 //System.out.println("Bruger fundet med kode:" + outputstring);
