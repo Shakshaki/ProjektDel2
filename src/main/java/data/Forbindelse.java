@@ -3,11 +3,11 @@ package data;
 import java.sql.*;
 
 public class Forbindelse {
+    private static Forbindelse forbindelse= new Forbindelse();
 
-    public static void main(String[] args) { //psvm
+    public static void main(String[] args) throws SQLException { //psvm
         Forbindelse forbindelse = new Forbindelse();
-        // forbindelse.updateConnection("192.168.239.24","root","groot");
-        String cpr ="0123456789";
+        String cpr = "0123456789";
         forbindelse.searchUser(cpr);
 
     }
@@ -18,53 +18,48 @@ public class Forbindelse {
     private ResultSet userset, appointmentset = null;
     private String cpr;
 
-
-    public void updateConnection(String newUrl, String newUsername, String newPassword) {
-
-        url = "jdbc:mysql://" + newUrl + ":3306/?user=" + newUsername;
-        userName = newUsername;
-        password = newPassword;
-
-        try {
-            connection = DriverManager.getConnection(url, userName, password);
-        } catch (SQLException e) {
-            e.printStackTrace();
+    public static Forbindelse getInstance(){
+        if (forbindelse==null){
+            forbindelse = new Forbindelse();
         }
+        return forbindelse;
+
     }
 
-    public Forbindelse() {
+    private Forbindelse() {
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").newInstance();  //indlæser driver-klasse
-            url = "jdbc:mysql://192.168.239.24";
+            url = "jdbc:mysql://192.168.239.24/?serverTimezone=UTC";
             userName = "sika";
             password = "itSMRC2019";
             connection = DriverManager.getConnection(url, userName, password);
 
-            if (connection != null) {
-                System.out.println("data.Forbindelse til databasen");
-            }
-
-            assert connection != null;
-            stmt = connection.createStatement();
-
-        } catch (Exception e) {
-            System.out.println("data.Forbindelse undtagelse: " + e.getMessage());
+            } catch (Exception e) {
+            System.out.println("Forbindelse undtagelse: " + e.getMessage());
             e.printStackTrace();
         }
+
     }
 
-    public Patient searchUser(String cpr) {
-
+    public Patient searchUser(String cpr) throws SQLException {
+        if (forbindelse == null){
+            forbindelse = new Forbindelse();
+        }
+        if (connection == null){
+            System.out.println("Connection null!");
+        }
+        stmt = connection.createStatement();
+        if (stmt==null){
+            System.out.println("Statement null");
+        }
         try {
-            userset = stmt.executeQuery("SELECT * FROM sund.patient WHERE brugernavn='"+cpr+"';");
+            userset = stmt.executeQuery("SELECT * FROM sund.patient WHERE brugernavn="+cpr+";");
             Patient patient = new Patient();
-
-
 
             if (userset.next()) {
                 int output = userset.getInt("brugernavn");
-                System.out.println("Bruger fundet med cpr:" + output);
+                System.out.println("Bruger fundet med følgende cpr: " + output);
                 //String outputstring = userset.getString("kode");
                 //System.out.println("Bruger fundet med kode:" + outputstring);
                 patient.setCpr(userset.getString("brugernavn")); //laver til et objekt
@@ -72,15 +67,10 @@ public class Forbindelse {
                 return patient;
 
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
     }
 
-    public void searchAppointment() {
-
-
-    }
 }

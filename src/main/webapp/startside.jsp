@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.Date" %>
+<%@ page import="data.Patient" %>
 <%
    Patient bruger = (Patient) session.getAttribute("bruger");
    if (bruger == null){

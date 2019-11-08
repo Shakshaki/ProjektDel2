@@ -1,22 +1,28 @@
 <%@ page import="java.util.Date" %>
 <%@ page import="data.Forbindelse" %>
 <%@ page import="data.Patient" %>
+<%@ page import="java.sql.SQLException" %>
 <!DOCTYPE html>
 
 <%
     //Check bruger fra parametre
     String cpr = request.getParameter("username");
     String kodeord = request.getParameter("password");
-    Forbindelse forbindelse = new Forbindelse();
+    Forbindelse forbindelse = Forbindelse.getInstance();
+    Patient p = null;             //definerer og finder patient med tilhørende cpr
+    try {
+        p = forbindelse.searchUser(cpr);
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
 
     //Check mod database
-    Patient p = forbindelse.searchUser(cpr); //finder patient med tilhørende cpr
-    if(p != null && kodeord.equals(p.getPassword())){   //tjekker, om der er fundet patient i database og sammenligner input med kodeord
-        response.sendRedirect("startside.jsp");// viser den nye startside
-        }
-
+    if(p != null && kodeord.equals(p.getPassword())) {   //tjekker, om der er fundet patient i database og sammenligner input med kodeord
+        response.sendRedirect("startside.jsp");
+        session.setAttribute("bruger",p);// viser den nye startside
+    }
 %>
-<html lang="en">
+   <html lang="en">
     <head>
         <meta charset="UTF-8">
         <title>Patientkalender</title>
@@ -40,7 +46,7 @@
                     </p>
                 </h4>
                 <div class="item4">
-                    <form class="username" action="startside.jsp" method="POST">
+                    <form class="username" action="index.jsp" method="POST">
                         Brugernavn: <br>
                         <input type="text" id="user" name="username" required><br>
                         Adgangskode: <br>
